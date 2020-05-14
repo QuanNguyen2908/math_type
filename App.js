@@ -32,21 +32,27 @@ const App = () => {
     Login();
     LoadQuestion();
   }, []);
-  console.log('dataQuestion', dataQuestion);
-  const dataArr = dataQuestion[6] ? dataQuestion[6].question.split('`') : null;
-  return (
-    <View>
-      {/* {renderQuestion()} */}
-      {dataArr !== null &&
-        dataArr.map((data, index) => {
-          if (data.indexOf('\\') !== -1) {
-            return <MathView math={data} key={index} />;
-          } else {
-            return <Text key={index}>{data}</Text>;
-          }
-        })}
-    </View>
-  );
+  console.log(dataQuestion);
+  const renderQuestion = () => {
+    return (
+      <View>
+        {dataQuestion !== '' &&
+          dataQuestion.map((item, index) => {
+            const dataArr = item.question.split('`');
+            return dataArr.map((item, index) => {
+              if (item.indexOf('\\') !== -1) {
+                console.log(item);
+                return <MathView math={item} key={index} />;
+              } else {
+                console.log(item);
+                return <Text key={index}>{item}</Text>;
+              }
+            });
+          })}
+      </View>
+    );
+  };
+  return <View>{renderQuestion()}</View>;
 };
 
 const styles = StyleSheet.create({});
